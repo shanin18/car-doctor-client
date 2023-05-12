@@ -17,7 +17,7 @@ const BookService = () => {
     const price = form.price.value;
     const newService = { name, img, service_id, title, email, date, price };
 
-    fetch("http://localhost:5000/bookings",{
+    fetch("https://car-doctor-server-shanin18.vercel.app/bookings",{
         method: "POST",
         headers:{
             "content-type":"application/json"

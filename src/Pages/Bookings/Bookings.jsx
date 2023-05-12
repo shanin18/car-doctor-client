@@ -7,7 +7,7 @@ const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
 
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const url = `https://car-doctor-server-shanin18.vercel.app/bookings?email=${user?.email}`;
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
@@ -15,7 +15,7 @@ const Bookings = () => {
   }, [url]);
 
   const handleDeleteService = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctor-server-shanin18.vercel.app/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -31,7 +31,7 @@ const Bookings = () => {
   };
 
   const handleStatus = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://car-doctor-server-shanin18.vercel.app/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
