@@ -11,7 +11,6 @@ const Products = () => {
         .then(data => setProducts(data))
     },[])
 
-    console.log(products)
     return (
         <div className="space-y-12">
       <div className="text-center space-y-5">

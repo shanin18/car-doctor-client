@@ -1,5 +1,5 @@
 const ProductCard = ({ product }) => {
-  console.log(product);
+  
   const { title, img, price } = product;
   return (
     <div className="border rounded-lg p-6">

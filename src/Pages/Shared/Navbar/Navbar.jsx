@@ -2,8 +2,18 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "/logo.svg";
 import { HiBars3BottomRight, HiOutlineShoppingBag } from "react-icons/hi2";
 import { HiOutlineSearch } from "react-icons/hi";
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => console.log("logOut successfully!"))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <nav className="navbar justify-between bg-base-100 my-12">
       <Link to="/">
@@ -44,20 +54,36 @@ const Navbar = () => {
             </li>
             <li className="font-semibold text-lg">
               <NavLink
-                to="/blog"
-                className={({ isActive }) => isActive && "text-[#FF3811]"}
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li className="font-semibold text-lg">
-              <NavLink
                 to="/contact"
                 className={({ isActive }) => isActive && "text-[#FF3811]"}
               >
                 Contact
               </NavLink>
             </li>
+            {user?.email ? (
+              <>
+                <li className="font-semibold text-lg">
+                  <NavLink
+                    to="/bookings"
+                    className={({ isActive }) => isActive && "text-[#FF3811]"}
+                  >
+                    My Bookings
+                  </NavLink>
+                </li>
+                <li className="font-semibold text-lg">
+                  <NavLink>Logout</NavLink>
+                </li>
+              </>
+            ) : (
+              <li className="font-semibold text-lg">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) => isActive && "text-[#FF3811]"}
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
             <li className="font-semibold">
               <NavLink
                 to="/cart"
@@ -115,35 +141,51 @@ const Navbar = () => {
           </li>
           <li className="font-semibold text-lg">
             <NavLink
-              to="/blog"
-              className={({ isActive }) => isActive && "text-[#FF3811]"}
-            >
-              Blog
-            </NavLink>
-          </li>
-          <li className="font-semibold text-lg">
-            <NavLink
               to="/contact"
               className={({ isActive }) => isActive && "text-[#FF3811]"}
             >
               Contact
             </NavLink>
           </li>
+          {user?.email ? (
+            <>
+              <li className="font-semibold text-lg">
+                <NavLink
+                  to="/bookings"
+                  className={({ isActive }) => isActive && "text-[#FF3811]"}
+                >
+                  My Bookings
+                </NavLink>
+              </li>
+              <li className="font-semibold text-lg">
+                <Link onClick={handleLogOut}>Logout</Link>
+              </li>
+            </>
+          ) : (
+            <li className="font-semibold text-lg">
+              <NavLink
+                to="/login"
+                className={({ isActive }) => isActive && "text-[#FF3811]"}
+              >
+                Login
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
-       <div className="hidden lg:flex items-center gap-3">
-          <button className="btn btn-ghost">
-            <HiOutlineShoppingBag className="text-xl"></HiOutlineShoppingBag>
+      <div className="hidden lg:flex items-center gap-3">
+        <button className="btn btn-ghost">
+          <HiOutlineShoppingBag className="text-xl"></HiOutlineShoppingBag>
+        </button>
+        <button className="btn btn-ghost">
+          <HiOutlineSearch className="text-xl"></HiOutlineSearch>
+        </button>
+        <Link to="">
+          <button className="btn btn-outline text-[#FF3811] hover:bg-[#FF3811] hover:border-[#FF3811] capitalize">
+            Appointment
           </button>
-          <button className="btn btn-ghost">
-            <HiOutlineSearch className="text-xl"></HiOutlineSearch>
-          </button>
-          <Link to="/login">
-            <button className="btn btn-outline text-[#FF3811] hover:bg-[#FF3811] hover:border-[#FF3811] capitalize">
-              Appointment
-            </button>
-          </Link>
-        </div>
+        </Link>
+      </div>
     </nav>
   );
 };

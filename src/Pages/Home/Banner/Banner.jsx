@@ -6,7 +6,7 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const Banner = () => {
   return (
-    <div className="carousel h-[600px] rounded-xl">
+    <div className="carousel h-[700px] rounded-xl">
       <div id="slide1" className="carousel-item relative w-full">
         <img src={img1} className="w-full" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] flex items-center">

@@ -1,7 +1,6 @@
 import image from "/images/login/login.svg";
-import facebook from "/icons/Facebook.png";
-import linkedIn from "/icons/linkedin.png";
-import google from "/icons/Google.png";
+import { Link } from "react-router-dom";
+import SignUpWithSocial from "../../components/SignUpWithSocial";
 
 const Login = () => {
   return (
@@ -11,7 +10,7 @@ const Login = () => {
           <img src={image} className="w-[360px]" alt="image" />
         </div>
         <div className="w-full md:w-[500px] shadow-2xl bg-base-100 p-12 rounded-xl mx-2 border">
-          <h2 className="text-[#444444] font-semibold text-4xl text-center">
+          <h2 className="text-[#444444] font-semibold text-4xl text-center mb-12">
             Login
           </h2>
           <form>
@@ -41,16 +40,12 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn border-0 bg-[#FF3811] capitalize">Login</button>
+            <input className="btn border-0 bg-[#FF3811] capitalize" value="Login" />
             </div>
           </form>
           <div className="divider">OR</div>
-          <div className="space-x-4 text-center my-8">
-            <button><img src={facebook} className="w-[50px]" alt="social icon" /></button>
-            <button><img src={linkedIn} className="w-[50px]" alt="social icon" /></button>
-            <button><img src={google} className="w-[50px]" alt="social icon" /></button>
-          </div>
-          <p className="text-[#737373] font-medium text-center">Have no account? <span className="text-[#FF3811]">Register</span></p>
+          <SignUpWithSocial></SignUpWithSocial>
+          <p className="text-[#737373] font-medium text-center">Have no account? <Link to="/signUp"><span className="text-[#FF3811] hover:underline">SignUp</span></Link></p>
         </div>
       </div>
     </div>

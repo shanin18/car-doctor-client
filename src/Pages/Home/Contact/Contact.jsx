@@ -4,7 +4,7 @@ import icon3 from "/icons/location.png";
 
 const Contact = () => {
   return (
-    <div className="bg-[#151515] px-20 py-24 rounded-xl flex items-center justify-around">
+    <div className="bg-[#151515] px-8 md:px-20 py-24 rounded-xl flex flex-wrap gap-8 items-center justify-around">
       <div className="flex items-center gap-5">
         <div>
           <img src={icon1} alt="icon" />
