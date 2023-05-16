@@ -2,20 +2,35 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import BookingsRow from "./BookingsRow";
 import checkoutImage from "/images/checkout/checkout.png";
+import { useNavigate } from "react-router-dom";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
 
+  const navigate = useNavigate()
+
   const url = `https://car-doctor-server-shanin18.vercel.app/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setBookings(data));
-  }, [url]);
+      .then((data) =>{
+        if(!data.error){
+          setBookings(data)
+        }
+        else{
+          navigate("/")
+        }
+      })
+  }, [url, navigate]);
 
   const handleDeleteService = (id) => {
-    fetch(`https://car-doctor-server-shanin18.vercel.app/${id}`, {
+    fetch(`https://car-doctor-server-shanin18.vercel.app/bookings/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -31,7 +46,7 @@ const Bookings = () => {
   };
 
   const handleStatus = (id) => {
-    fetch(`https://car-doctor-server-shanin18.vercel.app/${id}`, {
+    fetch(`https://car-doctor-server-shanin18.vercel.app/bookings/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

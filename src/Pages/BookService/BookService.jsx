@@ -7,27 +7,30 @@ const BookService = () => {
   const { title, price, img, service_id } = service;
   const { user } = useContext(AuthContext);
 
-
   const handleServiceSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const email = form.email.value;
+    const email = user?.email;
     const date = form.date.value;
     const price = form.price.value;
+
     const newService = { name, img, service_id, title, email, date, price };
 
-    fetch("https://car-doctor-server-shanin18.vercel.app/bookings",{
-        method: "POST",
-        headers:{
-            "content-type":"application/json"
-        },
-        body:JSON.stringify(newService)
+    fetch("https://car-doctor-server-shanin18.vercel.app/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newService),
     })
-    .then(res => res.json())
-    .then(() => {
-        form.reset();
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("service book successfully!");
+          form.reset();
+        }
+      });
   };
 
   return (
@@ -55,7 +58,12 @@ const BookService = () => {
             <label className="label">
               <span className="label-text text-lg font-medium">Date</span>
             </label>
-            <input type="date" name="date" required className="input input-bordered" />
+            <input
+              type="date"
+              name="date"
+              required
+              className="input input-bordered"
+            />
           </div>
         </div>
 
@@ -86,6 +94,7 @@ const BookService = () => {
             />
           </div>
         </div>
+
         <div>
           <input
             type="submit"

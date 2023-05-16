@@ -6,6 +6,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import BookService from "../Pages/BookService/BookService";
 import Bookings from "../Pages/Bookings/Bookings";
+import Private from "./Private";
 
 const router = createBrowserRouter([
   {
@@ -26,14 +27,19 @@ const router = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
       {
-        path:"bookService/:id",
-        element:<BookService></BookService>,
-        loader:({params}) =>fetch(`https://car-doctor-server-shanin18.vercel.app/${params.id}`)
+        path: "bookService/:id",
+        element: (
+          <Private>
+            <BookService></BookService>
+          </Private>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://car-doctor-server-shanin18.vercel.app/services/${params.id}`),
       },
       {
-        path:"bookings",
-        element:<Bookings></Bookings>
-      }
+        path: "bookings",
+        element: <Bookings></Bookings>,
+      },
     ],
   },
 ]);
